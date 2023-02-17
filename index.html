@@ -1,254 +1,20 @@
 <!DOCTYPE html>
 <html>
-
+  
 <head>
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-  <script type="text/javascript" src="./jquery.maphighlight.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      font-family: sans-serif;
-    }
-
-    .center {
-      display: grid;
-      place-items: center;
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: -5;
-      cursor: grab;
-    }
-
-    .center:active {
-      cursor: grabbing;
-    }
-
-    #search-form {
-      background: #879551;
-      width: 175px;
-      border-radius: 5px;
-      padding: 10px;
-      background: rgba(135, 149, 81, 0.9);
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      color: white;
-      display: none;
-    }
-
-    #search-form>input {
-      background: white;
-      margin-top: 5px;
-      padding-left: 7px;
-      padding-right: 7px;
-      padding-top: 5px;
-      padding-bottom: 5px;
-      border: none;
-      border-radius: 5px;
-      transition: box-shadow 500ms;
-    }
-
-    #search-form>input:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(172, 217, 232, .25);
-    }
-
-    #submit-button-container>input {
-      padding-left: 7px;
-      padding-right: 7px;
-      padding-top: 5px;
-      padding-bottom: 5px;
-      border: none;
-      border-radius: 5px;
-      background: #4e7a4e;
-      color: white;
-      transition: background 500ms;
-      cursor: pointer;
-    }
-
-    #submit-button-container input:hover {
-      background: #416941;
-    }
-
-    html {
-      background: #879551;
-    }
-
-    #submit-button-container {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-    }
-
-    #person-data,
-    #plot-data {
-      background: rgba(135, 149, 81, 0.9);
-      position: fixed;
-      color: white;
-      width: 220px;
-      border-radius: 5px;
-      padding: 10px;
-      left: 20px;
-      top: 160px;
-      display: none;
-      align-items: center;
-      flex-direction: column;
-    }
-
-    #landmark-info {
-      background: rgba(81, 106, 149, 0.9);
-      position: fixed;
-      color: white;
-      font-size: 17px;
-      border-radius: 5px;
-      padding: 10px;
-      left: 0px;
-      top: 0px;
-      display: none;
-    }
-
-    #person-info {
-      width: 90%;
-    }
-
-    #person-name {
-      margin-bottom: 10px;
-      margin-right: 20px;
-    }
-
-    #person-data-hide,
-    #plot-data-hide {
-      position: absolute;
-      transform: translateX(100px);
-      cursor: pointer;
-      color: #c2c2c2;
-    }
-
-    #plot-data-hide {
-      transform: translateX(215px);
-    }
-
-    #zoom-container {
-      position: absolute;
-      top: 85%;
-      display: flex;
-      flex-direction: column;
-      height: 70px;
-      align-items: center;
-      justify-content: space-between;
-      left: 95%;
-    }
-
-    #zoom-in,
-    #zoom-out {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: black;
-      font-size: 25px;
-      color: white;
-      height: 30px;
-      width: 30px;
-      cursor: pointer;
-      user-select: none;
-      border-radius: 2px;
-      opacity: 0.7;
-      position: fixed;
-    }
-
-    #zoom-in {
-      transform: translate(0, -40px);
-    }
-
-    #zoom-in:hover,
-    #zoom-out:hover {
-      opacity: 1.0;
-    }
-
-    #zoom-track {
-      position: absolute;
-      top: 200px;
-      left: 200px;
-      height: 100px;
-      background: black;
-      width: 5px;
-      border-radius: 100px;
-    }
-
-    #zoom-circle {
-      background: white;
-      border-radius: 50%;
-      height: 20px;
-      width: 20px;
-      position: absolute;
-      left: -7.5px;
-      cursor: pointer;
-    }
-
-    #plot-data {
-      position: absolute;
-    }
-
-    #plot-data>div {
-      width: 100%;
-    }
-
-    #plot-inhabitants {
-      margin-left: 20px;
-    }
-
-    #plot-inhabitants>li {
-      cursor: pointer;
-    }
-
-    #plot-inhabitants>li:hover {
-      text-decoration: underline;
-    }
-
-    #loading {
-      top: 60px;
-      left: 65px;
-      background: rgba(135, 149, 81, 0.95);
-      position: fixed;
-      color: white;
-      font-size: 17px;
-      border-radius: 5px;
-      padding: 10px;
-    }
-
-    #loading-anim {
-      animation-name: load;
-      animation-duration: 1s;
-      animation-iteration-count: infinite;
-    }
-
-    @keyframes load {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    #show-notable-burials {
-      font-size: 12px;
-      margin-top: 5px;
-    }
-
-    #show-notable-burials:hover {
-      text-decoration: underline;
-      cursor: pointer;
-    }
-    }
-  </style>
+  <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
+  <!-- JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+  <script type="text/javascript" src="./jquery.maphighlight.js"></script>
+  <script src="./script.js"></script>
+  
   <!-- Search User Form -->
-  <form action="" id="search-form" onsubmit='find();'>
+  <form action="" id="search-form">
     <label for="name">Name:</label>
     <datalist id="name-list"></datalist>
     <input name='name' id="name-input" list='name-list'>
@@ -256,7 +22,7 @@
     <br>
 
     <div id="submit-button-container">
-      <input type="submit" value="Submit">
+      <input id="submit-search-form" type="button" value="Submit">
     </div>
     <p id="show-notable-burials">See Notable Burials</p>
   </form>
@@ -306,8 +72,7 @@
     <div id='center' class="center">
 
       <!-- Image -->
-      <img src="./map.jpg" class='map' id="map" alt="Woodland Cemetery" usemap="#map" width="1632px" height="866px"
-        style='-webkit-overflow-scrolling: touch;'>
+      <img src="./map.jpg" class='map' id="map" alt="Woodland Cemetery" usemap="#map" width="1632px" height="866px" style='-webkit-overflow-scrolling: touch;'>
     </div>
   </div>
 
@@ -659,8 +424,7 @@
     <area target="" alt="G16" title="G16" href="" coords="612,444,619,453,612,461,603,452" shape="poly">
     <area target="" alt="G17" title="G17" href="" coords="628,461,619,453,612,461,619,470" shape="poly">
     <area target="" alt="G18" title="G18" href="" coords="637,464,637,477,625,475,619,468,628,461" shape="poly">
-    <area target="" alt="G19" title="G19" href="https://www.findagrave.com/" coords="489,291,480,300,492,311,498,303"
-      shape="poly">
+    <area target="" alt="G19" title="G19" href="" coords="489,291,480,300,492,311,498,303" shape="poly">
     <area target="" alt="G20" title="G20" href="" coords="508,313,499,303,492,312,499,321" shape="poly">
     <area target="" alt="G21" title="G21" href="" coords="508,313,517,322,508,329,499,320" shape="poly">
     <area target="" alt="G22" title="G22" href="" coords="525,331,517,322,508,330,517,340" shape="poly">
@@ -1044,8 +808,7 @@
     <area target="" alt="L45" title="L45" href="" coords="792,479,802,485,798,495,786,490" shape="poly">
     <area target="" alt="L46" title="L46" href="" coords="782,497,791,507,799,496,786,491" shape="poly">
     <area target="" alt="L47" title="L47" href="" coords="835,349,844,335,853,343,845,358" shape="poly">
-    <area target="" alt="L48" title="L48" href=""
-      coords="835,349,829,363,840,366,845,359,842,354,835,349,834,352,832,354,834,352" shape="poly">
+    <area target="" alt="L48" title="L48" href="" coords="835,349,829,363,840,366,845,359,842,354,835,349,834,352,832,354,834,352" shape="poly">
     <area target="" alt="L49" title="L49" href="" coords="824,372,829,362,840,366,835,379" shape="poly">
     <area target="" alt="L50" title="L50" href="" coords="825,372,819,384,831,390,835,378" shape="poly">
     <area target="" alt="L51" title="L51" href="" coords="824,401,831,389,819,383,814,393" shape="poly">
@@ -1129,8 +892,7 @@
     <area target="" alt="L129" title="L129" href="" coords="729,373,742,378,736,388,724,383" shape="poly">
     <area target="" alt="L130" title="L130" href="" coords="724,385,736,388,731,400,720,394" shape="poly">
     <area target="" alt="L131" title="L131" href="" coords="720,394,731,401,723,418,716,407" shape="poly">
-    <area target="" alt="L132" title="L132" href=""
-      coords="765,312,763,299,770,299,778,302,773,313,769,313,769,312,769,313,769,313,769,312,769,313" shape="poly">
+    <area target="" alt="L132" title="L132" href="" coords="765,312,763,299,770,299,778,302,773,313,769,313,769,312,769,313,769,313,769,312,769,313" shape="poly">
     <area target="" alt="L133" title="L133" href="" coords="753,303,763,299,765,312,759,313" shape="poly">
     <area target="" alt="L134" title="L134" href="" coords="759,314,752,302,744,314,756,319" shape="poly">
     <area target="" alt="L135" title="L135" href="" coords="756,318,744,314,740,323,750,329" shape="poly">
@@ -1571,8 +1333,9 @@
     <area target="" alt="Q27" title="Q27" href="" coords="1236,414,1228,422,1236,431,1246,421" shape="poly">
     <area target="" alt="Q28" title="Q28" href="" coords="1245,421,1236,429,1246,441,1255,431" shape="poly">
     <area target="" alt="Q29" title="Q29" href="" coords="1261,453,1258,429,1245,440" shape="poly">
-    <area target="" alt="Q31" title="Q31" href="" coords="1134,342,1144,351,1135,358,1127,348" shape="poly">
     <area target="" alt="Q30" title="Q30" href="" coords="1116,329,1123,332,1128,336,1121,345,1113,342" shape="poly">
+    <area target="" alt="Q30.5" title="Q30.5" href="" coords="1134,342,1127,349,1120,343,1127,335" shape="poly">
+    <area target="" alt="Q31" title="Q31" href="" coords="1134,342,1144,351,1135,358,1127,348" shape="poly">
     <area target="" alt="Q32" title="Q32" href="" coords="1143,351,1153,359,1145,366,1135,359" shape="poly">
     <area target="" alt="Q33" title="Q33" href="" coords="1153,359,1161,366,1154,376,1145,366" shape="poly">
     <area target="" alt="Q34" title="Q34" href="" coords="1161,366,1171,376,1162,385,1154,376" shape="poly">
@@ -1583,7 +1346,6 @@
     <area target="" alt="Q39" title="Q39" href="" coords="1207,410,1217,418,1208,428,1198,418" shape="poly">
     <area target="" alt="Q40" title="Q40" href="" coords="1215,419,1225,427,1217,436,1207,427" shape="poly">
     <area target="" alt="Q41" title="Q41" href="" coords="1225,427,1234,434,1226,444,1217,435" shape="poly">
-    <area target="" alt="Q30.5" title="Q30.5" href="" coords="1134,342,1127,349,1120,343,1127,335" shape="poly">
     <area target="" alt="Q42" title="Q42" href="" coords="1234,436,1244,445,1235,453,1226,443" shape="poly">
     <area target="" alt="Q43" title="Q43" href="" coords="1244,444,1252,451,1244,461,1235,453" shape="poly">
     <area target="" alt="Q44" title="Q44" href="" coords="1251,453,1259,459,1256,474,1245,462" shape="poly">
@@ -1605,6 +1367,7 @@
     <area target="" alt="Q60" title="Q60" href="" coords="1252,473,1255,473,1252,486,1246,480" shape="poly">
     <area target="" alt="Q61" title="Q61" href="" coords="1110,360,1121,370,1116,377,1101,376" shape="poly">
     <area target="" alt="Q62" title="Q62" href="" coords="1116,387,1128,376,1121,369,1116,376" shape="poly">
+    <area target="" alt="Q62.5" title="Q62.5" href="" coords="1128,392,1137,384,1127,375,1120,384" shape="poly">
     <area target="" alt="Q63" title="Q63" href="" coords="1127,391,1135,384,1145,392,1138,401" shape="poly">
     <area target="" alt="Q64" title="Q64" href="" coords="1145,391,1138,401,1147,410,1155,401" shape="poly">
     <area target="" alt="Q65" title="Q65" href="" coords="1155,402,1164,409,1157,419,1147,409" shape="poly">
@@ -1634,6 +1397,7 @@
     <area target="" alt="Q89" title="Q89" href="" coords="1218,479,1209,487,1219,496,1228,487" shape="poly">
     <area target="" alt="Q90" title="Q90" href="" coords="1226,487,1238,496,1229,506,1219,496" shape="poly">
     <area target="" alt="Q91" title="Q91" href="" coords="1238,496,1246,504,1238,514,1229,506" shape="poly">
+    <area target="" alt="Q91.5" title="Q91.5" href="" coords="1246,502,1245,518,1238,514" shape="poly">
     <area target="" alt="Q92" title="Q92" href="" coords="1116,406,1124,413,1113,420,1106,410" shape="poly">
     <area target="" alt="Q93" title="Q93" href="" coords="1124,413,1133,422,1127,427,1120,433,1113,419" shape="poly">
     <area target="" alt="Q94" title="Q94" href="" coords="1134,422,1143,430,1134,439,1128,426" shape="poly">
@@ -1663,8 +1427,6 @@
     <area target="" alt="Q118" title="Q118" href="" coords="1217,536,1208,526,1214,516,1224,526" shape="poly">
     <area target="" alt="Q119" title="Q119" href="" coords="1225,542,1235,535,1224,527,1218,535" shape="poly">
     <area target="" alt="Q120" title="Q120" href="" coords="1234,553,1239,540,1234,533,1225,543" shape="poly">
-    <area target="" alt="Q62.5" title="Q62.5" href="" coords="1128,392,1137,384,1127,375,1120,384" shape="poly">
-    <area target="" alt="Q91.5" title="Q91.5" href="" coords="1246,502,1245,518,1238,514" shape="poly">
     <area target="" alt="Q121" title="Q121" href="" coords="1127,469,1143,471,1137,482,1125,481" shape="poly">
     <area target="" alt="Q122" title="Q122" href="" coords="1144,487,1135,480,1144,472,1153,479" shape="poly">
     <area target="" alt="Q123" title="Q123" href="" coords="1154,498,1144,488,1154,481,1162,489" shape="poly">
@@ -1677,6 +1439,7 @@
     <area target="" alt="Q130" title="Q130" href="" coords="1217,558,1207,547,1215,542,1225,549" shape="poly">
     <area target="" alt="Q131" title="Q131" href="" coords="1231,572,1234,559,1224,549,1217,557" shape="poly">
     <area target="" alt="Q132" title="Q132" href="" coords="1133,492,1138,484,1125,481,1124,492" shape="poly">
+    <area target="" alt="Q132.5" title="Q132.5" href="" coords="1143,488,1137,482,1133,493,1137,496" shape="poly">
     <area target="" alt="Q133" title="Q133" href="" coords="1144,505,1154,497,1144,488,1137,495" shape="poly">
     <area target="" alt="Q134" title="Q134" href="" coords="1154,516,1144,506,1153,498,1162,506" shape="poly">
     <area target="" alt="Q135" title="Q135" href="" coords="1162,523,1154,516,1162,508,1170,515" shape="poly">
@@ -1687,8 +1450,6 @@
     <area target="" alt="Q140" title="Q140" href="" coords="1207,566,1218,559,1209,549,1198,559" shape="poly">
     <area target="" alt="Q141" title="Q141" href="" coords="1218,576,1224,566,1217,559,1207,566" shape="poly">
     <area target="" alt="Q142" title="Q142" href="" coords="1226,586,1217,577,1225,565,1231,573" shape="poly">
-    <area target="" alt="Q132.5" title="Q132.5" href="" coords="1143,488,1137,482,1133,493,1137,496" shape="poly">
-
     <area target="" alt="Q143" title="Q143" href="" coords="1127,498,1137,505,1130,513,1123,509" shape="poly">
     <area target="" alt="Q144" title="Q144" href="" coords="1135,504,1145,513,1137,521,1130,513" shape="poly">
     <area target="" alt="Q145" title="Q145" href="" coords="1137,521,1145,513,1155,523,1147,531" shape="poly">
@@ -1750,35 +1511,35 @@
     <area target="" alt="Q201" title="Q201" href="" coords="1155,645,1172,641,1165,631" shape="poly">
 
     <!-- Section R -->
-    <area target="" alt="R31" title="R31" href=""
-      coords="821,637,834,627,841,638,828,647,822,643,821,639,821,637,822,642,822,643" shape="poly">
+    <area target="" alt="R1" title="R1" href="" coords="819,628,819,632,821,638,834,627,827,616,821,622,819,628,821,622" shape="poly">
     <area target="" alt="R2" title="R2" href="" coords="837,610,827,617,834,627,844,619" shape="poly">
-    <area target="" alt="R32" title="R32" href="" coords="844,619,834,627,841,638,851,631" shape="poly">
     <area target="" alt="R3" title="R3" href="" coords="844,620,837,609,847,603,854,613" shape="poly">
-    <area target="" alt="R1" title="R1" href="" coords="819,628,819,632,821,638,834,627,827,616,821,622,819,628,821,622"
-      shape="poly">
-    <area target="" alt="R33" title="R33" href="" coords="842,619,854,612,861,626,851,631" shape="poly">
     <area target="" alt="R4" title="R4" href="" coords="858,597,848,603,854,613,863,606" shape="poly">
-    <area target="" alt="R34" title="R34" href="" coords="854,613,863,607,871,617,860,624" shape="poly">
     <area target="" alt="R5" title="R5" href="" coords="858,597,868,591,874,601,863,606" shape="poly">
-    <area target="" alt="R35" title="R35" href="" coords="864,607,874,600,881,611,871,616" shape="poly">
-    <area target="" alt="R7" title="R7" href="" coords="884,584,890,584,897,588,891,598,884,596,884,584" shape="poly">
     <area target="" alt="R6" title="R6" href="" coords="871,588,878,600,884,596,884,584,876,584,871,588" shape="poly">
-    <area target="" alt="R36" title="R36" href="" coords="884,609,877,598,883,596,891,598,884,609" shape="poly">
+    <area target="" alt="R7" title="R7" href="" coords="884,584,890,584,897,588,891,598,884,596,884,584" shape="poly">
     <area target="" alt="R8" title="R8" href="" coords="897,588,891,598,902,604,909,597" shape="poly">
-    <area target="" alt="R37" title="R37" href="" coords="890,598,884,610,896,615,902,604,896,601,903,605" shape="poly">
     <area target="" alt="R9" title="R9" href="" coords="909,597,903,605,912,612,919,602" shape="poly">
-    <area target="" alt="R38" title="R38" href="" coords="902,605,896,615,907,622,913,612" shape="poly">
     <area target="" alt="R10" title="R10" href="" coords="919,603,926,606,920,616,912,613,919,603" shape="poly">
     <area target="" alt="R11" title="R11" href="" coords="926,606,933,609,929,622,920,617" shape="poly">
-    <area target="" alt="R39" title="R39" href="" coords="913,612,920,616,916,628,907,623" shape="poly">
-    <area target="" alt="R40" title="R40" href="" coords="920,616,929,622,925,632,916,628" shape="poly">
+
     <area target="" alt="R25" title="R25" href="" coords="1086,621,1096,612,1105,622,1095,631" shape="poly">
     <area target="" alt="R26" title="R26" href="" coords="1096,631,1105,622,1113,631,1105,641" shape="poly">
     <area target="" alt="R27" title="R27" href="" coords="1105,641,1113,631,1122,641,1112,649" shape="poly">
     <area target="" alt="R28" title="R28" href="" coords="1112,648,1122,641,1131,650,1121,659" shape="poly">
     <area target="" alt="R29" title="R29" href="" coords="1122,659,1131,650,1141,660,1129,669" shape="poly">
     <area target="" alt="R30" title="R30" href="" coords="1129,669,1139,660,1145,668,1147,678,1144,686" shape="poly">
+    <area target="" alt="R31" title="R31" href="" coords="821,637,834,627,841,638,828,647,822,643,821,639,821,637,822,642,822,643" shape="poly">
+    <area target="" alt="R32" title="R32" href="" coords="844,619,834,627,841,638,851,631" shape="poly">
+    <area target="" alt="R33" title="R33" href="" coords="842,619,854,612,861,626,851,631" shape="poly">
+    <area target="" alt="R34" title="R34" href="" coords="854,613,863,607,871,617,860,624" shape="poly">
+    <area target="" alt="R35" title="R35" href="" coords="864,607,874,600,881,611,871,616" shape="poly">
+    <area target="" alt="R36" title="R36" href="" coords="884,609,877,598,883,596,891,598,884,609" shape="poly">
+    <area target="" alt="R37" title="R37" href="" coords="890,598,884,610,896,615,902,604,896,601,903,605" shape="poly">
+    <area target="" alt="R38" title="R38" href="" coords="902,605,896,615,907,622,913,612" shape="poly">
+    <area target="" alt="R39" title="R39" href="" coords="913,612,920,616,916,628,907,623" shape="poly">
+    <area target="" alt="R40" title="R40" href="" coords="920,616,929,622,925,632,916,628" shape="poly">
+    
     <area target="" alt="R53" title="R53" href="" coords="1077,629,1085,622,1095,630,1085,637" shape="poly">
     <area target="" alt="R54" title="R54" href="" coords="1086,639,1095,630,1103,640,1095,649" shape="poly">
     <area target="" alt="R55" title="R55" href="" coords="1095,650,1103,640,1111,650,1102,658" shape="poly">
@@ -1969,499 +1730,6 @@
     <area target="" alt="entrance" title="Entrance" href="" coords="752,268,766,238,775,241,762,274" shape="poly">
     <area target="" alt="chapel" title="Chapel" href="" coords="873,690,851,680,840,709,867,720" shape="poly">
   </map>
-
-  <script>
-    let inter = 1;
-    setInterval(function () {
-      $('#loading-text').html('Loading' + '.'.repeat(inter));
-      inter += 1;
-      if (inter > 3) {
-        inter = 1;
-      }
-    }, 500);
-    let old = '';
-    let title = '';
-    let names;
-    // load map
-    $('#map').maphilight();
-    //All
-    $('area').each(function () {$(this).data('maphilight', {'alwaysOn': false, 'fillColor': 'f24141', 'fillOpacity': '0.3', 'strokeColor': 'a61728', 'shadow': true, 'shadowColor': 'f24141', 'shadowOpacity': 0.7, 'shadowY': 3, 'shadowPosition': 'outside'}).trigger('alwaysOn.maphilight')});
-    //Fountain
-    $('area[title|="fountain" i]').data('maphilight', {'alwaysOn': true, 'fillColor': '1058c4', 'fillOpacity': '0.4', 'strokeColor': '1058c4', 'shadow': true, 'shadowColor': '1058c4', 'shadowOpacity': 0.7, 'shadowY': 3, 'shadowPosition': 'outside'}).trigger('alwaysOn.maphilight');
-    $('area[title|="fountain" i]').mousemove(function (event) {landmark("fountain", event)});
-    $('area[title|="fountain" i]').mouseout(function (event) {stopLandmark()});
-    //Entrance
-    $('area[title|="entrance" i]').data('maphilight', {'alwaysOn': true, 'fillColor': '1058c4', 'fillOpacity': '0.4', 'strokeColor': '1058c4', 'shadow': true, 'shadowColor': '1058c4', 'shadowOpacity': 0.7, 'shadowY': 3, 'shadowPosition': 'outside'}).trigger('alwaysOn.maphilight');
-    $('area[title|="entrance" i]').mousemove(function (event) {landmark("entrance", event)});
-    $('area[title|="entrance" i]').mouseout(function (event) {stopLandmark()});
-    //Chapel
-    $('area[title|="chapel" i]').data('maphilight', {'alwaysOn': true, 'fillColor': '1058c4', 'fillOpacity': '0.4', 'strokeColor': '1058c4', 'shadow': true, 'shadowColor': '1058c4', 'shadowOpacity': 0.7, 'shadowY': 3, 'shadowPosition': 'outside'}).trigger('alwaysOn.maphilight');
-    $('area[title|="chapel" i]').mousemove(function (event) {landmark("chapel", event)});
-    $('area[title|="chapel" i]').mouseout(function (event) {stopLandmark()});
-    // See lot details
-    $("area").each((i, elmnt) => {
-      let x = 0;
-      let y = 0;
-      elmnt = $(elmnt);
-
-      elmnt.mousedown(e => {
-        if (elmnt.attr('title') === "Chapel" || elmnt.attr('title') === "Fountain" || elmnt.attr('title') === "Entrance") {
-          return;
-        }
-        x = e.pageX;
-        y = e.pageY;
-      });
-
-      elmnt.mouseup(e => {
-        if (elmnt.attr('title') === "Chapel" || elmnt.attr('title') === "Fountain" || elmnt.attr('title') === "Entrance") {
-          return;
-        }
-
-        if (Math.abs(e.pageX - x) < 5 && Math.abs(e.pageY - y) < 5 && names) {
-          elmnt.mouseout();
-
-          // hide person data
-          $("#person-data").hide();
-          $("#plot-data").css("display", "flex");
-          $("#plot-name").text(elmnt.attr("title"));
-
-          $("#plot-inhabitants").html(null);
-          $("#plot-inhabitants").css("height", "auto");
-          let location = elmnt.attr('title');
-          for (let i = 0; i < names.length; i++) {
-            if (names[i][4].replace(' ', '') + names[i][5].replace(' ', '') === location) {
-              let middle = names[i][1];
-              let fname = names[i][0];
-              let lname = names[i][2];
-
-              let inhabitant = $(`<li class="plot-inhabitant">${(fname + ' ' + middle + ' ' + lname).replace(null, '').replace(null, '').replace('  ', ' ').replace('  ', ' ')}</li>`);
-
-              inhabitant.click(() => {
-                find(inhabitant.text(), location);
-              });
-
-              $("#plot-inhabitants").append(inhabitant);
-            }
-          }
-
-          // add scroll bar
-          if ($("#plot-inhabitants").height() > $(window).height() - 220) {
-            $("#plot-inhabitants").css("overflow-y", "scroll");
-            $("#plot-inhabitants").height($(window).height() - 220);
-          } else {
-            $("#plot-inhabitants").css("overflow-y", "hidden");
-            $("#plot-inhabitants").css("height", "auto");
-          }
-
-          // highlighting
-          title = location;
-          if (old != '') {
-            $('area[title|="' + old + '" i]').data('maphilight', {'alwaysOn': false, 'fillColor': 'f24141', 'fillOpacity': '0.3', 'strokeColor': 'a61728', 'shadow': true, 'shadowColor': 'f24141', 'shadowOpacity': 0.7, 'shadowY': 3, 'shadowPosition': 'outside'}).trigger('alwaysOn.maphilight');
-          }
-          elmnt.data('maphilight', {'alwaysOn': true, 'fillColor': 'f5fc23', 'fillOpacity': '0.4', 'strokeColor': 'f5fc23', 'shadow': true, 'shadowColor': 'f5fc23', 'shadowOpacity': 0.7, 'shadowY': 3, 'shadowPosition': 'outside'}).trigger('alwaysOn.maphilight');
-          old = title;
-        }
-      });
-    });
-    // zoom
-    var zoom = 1;
-    function scale(amount) {
-      $('.map').css({'transform': `scale(${amount}, ${amount})`});
-      $('#map').css({'transform': 'scale(1, 1)'});
-      zoom = amount;
-    }
-
-    // zoom buttons
-    var zooming = false;
-    function zoomIn() {
-      if (zooming == true || zoom >= 3) {
-        return;
-      }
-      zooming = true;
-      let i = 0;
-      let interval = setInterval(() => {
-        if (i >= 0.3 || zoom >= 3) {
-          zooming = false;
-          clearInterval(interval);
-          return;
-        } else {
-          scale(zoom + 0.01);
-          i += 0.01;
-        }
-      }, 10);
-    }
-    function zoomOut() {
-      if (zooming == true || zoom <= 1) {
-        return;
-      }
-      zooming = true;
-      let changeX;
-      let changeY;
-      changeX = -img.offsetLeft / 30;
-      changeY = -img.offsetTop / 30;
-      let x = 0;
-      interval = setInterval(() => {
-        if (x >= 0.3 || zoom <= 1) {
-          zooming = false;
-          img.style.top = '0px';
-          img.style.left = '0px';
-          clearInterval(interval);
-          return;
-        }
-        else {
-          scale(zoom - 0.01);
-          x += 0.01;
-          img.style.top = img.offsetTop + changeY + 'px';
-          img.style.left = img.offsetLeft + changeX + 'px';
-        }
-      }, 10);
-    }
-    function landmark(name, event) {
-      $('#landmark-info').css({'display': 'flex'});
-      let left = event.pageX + 5;
-      let top = event.pageY - 30 * zoom;
-      if (name === 'fountain') {
-        $('#landmark-info').css({'top': top + 'px', 'left': left + 'px', 'font-size': 17 * zoom + 'px'});
-        $('#landmark-name').html("Fountain");
-      }
-      else if (name === 'chapel') {
-        $('#landmark-info').css({'top': top + 'px', 'left': left + 'px', 'font-size': 17 * zoom + 'px'});
-        $('#landmark-name').html("Chapel");
-      }
-      else {
-        $('#landmark-info').css({'top': top + 'px', 'left': left + 'px', 'font-size': 17 * zoom + 'px'});
-        $('#landmark-name').html("Entrance");
-      }
-    }
-    function stopLandmark() {
-      $('#landmark-info').css({'display': 'none'});
-    }
-
-    $("form").submit(function (e) {
-      e.preventDefault();
-    });
-
-    $("#person-data-hide").click(() => {
-      $("#person-data").hide();
-      $('area[title|="' + old + '" i]').data('maphilight', {'alwaysOn': false, 'fillColor': 'f24141', 'fillOpacity': '0.3', 'strokeColor': 'a61728', 'shadow': true, 'shadowColor': 'f24141', 'shadowOpacity': 0.7, 'shadowY': 3, 'shadowPosition': 'outside'}).trigger('alwaysOn.maphilight');
-      old = '';
-    });
-
-    // fetch data
-    fetch("https://woodlandcemeteryapi.illusion705.repl.co/data/regular_lots")
-      .then(response => response.json())
-      .then(data => {
-        names = data;
-
-        let str = '';
-
-        for (let i = 0; i < names.length; i++) {
-          if (names[i][1] != '') {
-            str += ('<option value="' + names[i][0] + ' ' + names[i][1] + ' ' + names[i][2] + ' (' + names[i][4] + names[i][5] + ')' + '"></option>').replace(null, '').replace(null, '').replace('  ', ' ').replace('  ', ' ');
-          } else {
-            str += ('<option value="' + names[i][0] + ' ' + names[i][2] + ' (' + names[i][4] + names[i][5] + ')' + '"></option>').replace(null, '').replace(null, '').replace('  ', ' ').replace('  ', ' ');
-          }
-        }
-        document.getElementById('name-list').innerHTML = str;
-
-        // show search form
-        $("#search-form").fadeIn();
-        $('#loading').fadeOut();
-      });
-
-    let theirSection = '';
-    function find(name = null, theirSection = null) {
-      if (!name) {
-        name = $('input[name="name"]').val();
-      }
-      if (name === '') {
-        return;
-      }
-      if (name.indexOf('(') != -1) {
-        theirSection = name.substring(name.indexOf('(') + 1, name.length - 1);
-        name = name.substring(0, name.indexOf('(') - 1);
-      }
-      var section = '';
-      var lot = '';
-      var middle = '';
-      var tit = '';
-      var graveNum = '';
-      var death = '';
-      var lname = '';
-      var fname = '';
-      // google sheets stuff
-      for (let i = 0; i < names.length; i++) {
-        let checkName = '';
-        if (names[i][1] != '') {
-          checkName = (names[i][0] + ' ' + names[i][1] + ' ' + names[i][2]).replace(null, '').replace(null, '').replace('  ', ' ').replace('  ', ' ');
-        } else {
-          checkName = (names[i][0] + ' ' + names[i][2]).replace(null, '').replace(null, '').replace('  ', ' ').replace('  ', ' ');
-        }
-        if (name === checkName) {
-          section = names[i][4].replace(' ', '');
-          lot = names[i][5].replace(' ', '');
-          if (theirSection != (section + lot) && theirSection != '') {
-            continue;
-          }
-          middle = names[i][1];
-          tit = names[i][3];
-          graveNum = names[i][6];
-          death = names[i][7];
-          fname = names[i][0];
-          lname = names[i][2];
-          if (tit === null || tit === '') {
-            tit = 'N/A';
-          }
-          if (graveNum === null || graveNum === '') {
-            graveNum = 'N/A';
-          }
-          if (death === null || death === '') {
-            death = 'N/A';
-          }
-          $("#person-data").css("display", "flex");
-          $("#plot-data").hide();
-          break;
-        }
-      }
-      document.getElementById('person-name').innerHTML = (fname + ' ' + middle + ' ' + lname).replace(null, '').replace(null, '').replace('  ', ' ').replace('  ', ' ');
-      document.getElementById('person-section').innerHTML = ('Section: ' + section.toUpperCase()).replace(null, '');
-      document.getElementById('person-lot-num').innerHTML = ('Lot Number: ' + lot).replace(null, '');
-      document.getElementById('person-tit').innerHTML = ('Title: ' + tit).replace(null, '');
-      document.getElementById('grave-number').innerHTML = ('Grave Number: ' + graveNum).replace(null, '');
-      document.getElementById('death-date').innerHTML = ('Death Date: ' + death).replace(null, '');
-      title = (section.toLowerCase() + lot).toString();
-      $('input[name="name"]').val('');
-
-      if (old != '') {
-        $('area[title|="' + old + '" i]').data('maphilight', {'alwaysOn': false, 'fillColor': 'f24141', 'fillOpacity': '0.3', 'strokeColor': 'a61728', 'shadow': true, 'shadowColor': 'f24141', 'shadowOpacity': 0.7, 'shadowY': 3, 'shadowPosition': 'outside'}).trigger('alwaysOn.maphilight');
-      }
-
-      $('area[title|="' + title + '" i]').data('maphilight', {'alwaysOn': true, 'fillColor': 'f5fc23', 'fillOpacity': '0.4', 'strokeColor': 'f5fc23', 'shadow': true, 'shadowColor': 'f5fc23', 'shadowOpacity': 0.7, 'shadowY': 3, 'shadowPosition': 'outside'}).trigger('alwaysOn.maphilight');
-      old = title;
-    }
-
-    // remove links on sections
-    const map = document.querySelector("map");
-
-    map.onclick = e => {
-      e.preventDefault();
-    }
-
-    // map dragging
-    // code from: https://www.w3schools.com/howto/howto_js_draggable.asp
-    const img = document.querySelector(".center");
-    dragElement(img);
-    dragElement(map);
-
-    function dragElement(elmnt) {
-      var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-      elmnt.onmousedown = dragMouseDown;
-
-      function dragMouseDown(e) {
-        e = e || window.event;
-        e.preventDefault();
-
-        // get the mouse cursor position at startup:
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        document.onmouseup = closeDragElement;
-
-        // call a function whenever the cursor moves:
-        document.onmousemove = elementDrag;
-      }
-
-      function elementDrag(e) {
-        e = e || window.event;
-        e.preventDefault();
-        // calculate the new cursor position:
-        pos1 = pos3 - e.clientX;
-        pos2 = pos4 - e.clientY;
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-
-        // set the element's new position:
-        if (!(img.offsetTop - pos2 > 0 + ((zoom - 1) * 433)) && !(img.offsetTop - pos2 < -255 - ((zoom - 1) * 433))) {
-          img.style.top = (img.offsetTop - pos2) + 'px';
-        }
-        if (!(img.offsetLeft - pos1 > 0 + ((zoom - 1) * 816)) && !(img.offsetLeft - pos1 < -340 - ((zoom - 1) * 816))) {
-          img.style.left = (img.offsetLeft - pos1) + 'px';
-        }
-      }
-
-      function closeDragElement() {
-        // stop moving when mouse button is released:
-        document.onmouseup = null;
-        document.onmousemove = null;
-      }
-    }
-
-    // hide plot data
-    $("#plot-data-hide").click(() => {
-      $("#plot-data").hide();
-
-      // remove highlight
-      $('area[title|="' + old + '" i]').data('maphilight', {'alwaysOn': false, 'fillColor': 'f24141', 'fillOpacity': '0.3', 'strokeColor': 'a61728', 'shadow': true, 'shadowColor': 'f24141', 'shadowOpacity': 0.7, 'shadowY': 3, 'shadowPosition': 'outside'}).trigger('alwaysOn.maphilight');
-      old = '';
-    });
-
-    // notable burials
-    $("#show-notable-burials").click(() => {
-      $("#person-data").hide();
-      $("#plot-data").css("display", "flex");
-      $("#plot-name").text("Notable Burials");
-
-      $("#plot-inhabitants").html(null);
-      $("#plot-inhabitants").css("height", "auto");
-
-      let notableBurials = [{
-        fname: "Arthur",
-        lname: "Ashe",
-        section: "M",
-        lot: "11"
-      }, {
-        fname: "John",
-        lname: "Jasper",
-        section: "R",
-        lot: "1"
-      }, {
-        fname: "Arthur",
-        mname: "Lee",
-        lname: "Gardner",
-        section: "V",
-        lot: "26"
-      }, {
-        fname: "Charles",
-        mname: "T.",
-        lname: "Russell",
-        section: "W",
-        lot: "13"
-      }, {
-        fname: "Augustus",
-        lname: "Brown",
-        section: "R",
-        lot: "67"
-      }, {
-        fname: "Christopher",
-        mname: "French",
-        lname: "Foster",
-        section: "T",
-        lot: "23"
-      }, {
-        fname: "Lucy",
-        lname: "Foster",
-        section: "T",
-        lot: "23"
-      }, {
-        fname: "Annie",
-        lname: "Cofer",
-        section: "H",
-        lot: "50"
-      }, {
-        fname: "Dawson",
-        lname: "Cofer",
-        section: "H",
-        lot: "50"
-      }, {
-        fname: "Florence",
-        lname: "Walker",
-        section: "H",
-        lot: "14"
-      }, {
-        fname: "Hattie",
-        lname: "Jefferson",
-        section: "S",
-        lot: "3"
-      }, {
-        fname: "Henry",
-        mname: "J.",
-        lname: "Moore",
-        section: "U",
-        lot: "23"
-      }, {
-        fname: "I.",
-        mname: "Lincoln",
-        lname: "Bailey",
-        section: "U",
-        lot: "16"
-      }, {
-        fname: "Thomas",
-        lname: "Crump",
-        section: "R",
-        lot: "35"
-      }, {
-        fname: "William",
-        lname: "Browne",
-        section: "J",
-        lot: "20"
-      }, {
-        fname: "Zenobia",
-        mname: "G.",
-        lname: "Gilpin",
-        section: "F",
-        lot: "53"
-      }, {
-        fname: "Marietta",
-        lname: "Chiles",
-        section: "W",
-        lot: "16"
-      }, {
-        fname: "John",
-        lname: "Hewin",
-        section: "W",
-        lot: "17"
-      }, {
-        fname: "Elizabeth",
-        lname: "Gaiters",
-        section: "G",
-        lot: "102"
-      }, {
-        fname: "Leslie",
-        lname: "Bolling",
-        section: "T",
-        lot: "15"
-      }, {
-        fname: "Robert",
-        lname: "Pharr",
-        section: "K",
-        lot: "1"
-      }, {
-        fname: "Martha",
-        lname: "Anderson",
-        section: "C",
-        lot: "21"
-      }, {
-        fname: "Clarence",
-        mname: "P.",
-        lname: "Hayes",
-        section: "T",
-        lot: "27"
-      }];
-
-      for (let person of notableBurials) {
-        let inhabitant = $(`<li class="plot-inhabitant">${(person.fname + ' ' + (person.mname ? (person.mname + " ") : null) + person.lname + " (" + person.section + person.lot + ")").replace(null, '').replace(null, '').replace('  ', ' ').replace('  ', ' ')}</li>`);
-
-        inhabitant.click(() => {
-          find(inhabitant.text(), person.section + person.lot);
-        });
-
-        $("#plot-inhabitants").append(inhabitant);
-      }
-
-      // add scroll bar
-      if ($("#plot-inhabitants").height() > $(window).height() - 220) {
-        $("#plot-inhabitants").css("overflow-y", "scroll");
-        $("#plot-inhabitants").height($(window).height() - 220);
-      } else {
-        $("#plot-inhabitants").css("overflow-y", "hidden");
-        $("#plot-inhabitants").css("height", "auto");
-      }
-
-      // remove highlighting
-      if (old != '') {
-        $('area[title|="' + old + '" i]').data('maphilight', {'alwaysOn': false, 'fillColor': 'f24141', 'fillOpacity': '0.3', 'strokeColor': 'a61728', 'shadow': true, 'shadowColor': 'f24141', 'shadowOpacity': 0.7, 'shadowY': 3, 'shadowPosition': 'outside'}).trigger('alwaysOn.maphilight');
-      }
-    });
-  </script>
 </body>
 
 </html>

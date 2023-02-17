@@ -1,0 +1,230 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.center {
+  display: grid;
+  place-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -5;
+  cursor: grab;
+}
+
+.center:active {
+  cursor: grabbing;
+}
+
+#search-form {
+  background: #879551;
+  width: 175px;
+  border-radius: 5px;
+  padding: 10px;
+  background: rgba(135, 149, 81, 0.9);
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  color: white;
+  display: none;
+}
+
+#search-form > input {
+  background: white;
+  margin-top: 5px;
+  padding-left: 7px;
+  padding-right: 7px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border: none;
+  border-radius: 5px;
+  transition: box-shadow 500ms;
+}
+
+#search-form > input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(172, 217, 232, .25);
+}
+
+#submit-button-container > input {
+  padding-left: 7px;
+  padding-right: 7px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border: none;
+  border-radius: 5px;
+  background: #4e7a4e;
+  color: white;
+  transition: background 500ms;
+  cursor: pointer;
+}
+
+#submit-button-container input:hover {
+  background: #416941;
+}
+
+html {
+  background: #879551;
+}
+
+#submit-button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#person-data, #plot-data {
+  background: rgba(135, 149, 81, 0.9);
+  position: fixed;
+  color: white;
+  width: 220px;
+  border-radius: 5px;
+  padding: 10px;
+  left: 20px;
+  top: 160px;
+  display: none;
+  align-items: center;
+  flex-direction: column;
+}
+
+#landmark-info {
+  background: rgba(81, 106, 149, 0.9);
+  position: fixed;
+  color: white;
+  font-size: 17px;
+  border-radius: 5px;
+  padding: 10px;
+  left: 0px;
+  top: 0px;
+  display: none;
+}
+
+#person-info {
+  width: 90%;
+}
+
+#person-name {
+  margin-bottom: 10px;
+  margin-right: 20px;
+}
+
+#person-data-hide, #plot-data-hide {
+  position: absolute;
+  transform: translateX(100px);
+  cursor: pointer;
+  color: #c2c2c2;
+}
+
+#plot-data-hide {
+  transform: translateX(215px);
+}
+
+#zoom-container {
+  position: absolute;
+  top: 85%;
+  display: flex;
+  flex-direction: column;
+  height: 70px;
+  align-items: center;
+  justify-content: space-between;
+  left: 95%;
+}
+
+#zoom-in, #zoom-out {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black;
+  font-size: 25px;
+  color: white;
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 2px;
+  opacity: 0.7;
+  position: fixed;
+}
+
+#zoom-in {
+  transform: translate(0, -40px);
+}
+
+#zoom-in:hover, #zoom-out:hover {
+  opacity: 1.0;
+}
+
+#zoom-track {
+  position: absolute;
+  top: 200px;
+  left: 200px;
+  height: 100px;
+  background: black;
+  width: 5px;
+  border-radius: 100px;
+}
+
+#zoom-circle {
+  background: white;
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  left: -7.5px;
+  cursor: pointer;
+}
+
+#plot-data {
+  position: absolute;
+}
+
+#plot-data > div {
+  width: 100%;
+}
+
+#plot-inhabitants {
+  margin-left: 20px;
+}
+
+#plot-inhabitants > li {
+  cursor: pointer;
+}
+
+#plot-inhabitants > li:hover {
+  text-decoration: underline;
+}
+
+#loading {
+  top: 60px;
+  left: 65px;
+  background: rgba(135, 149, 81, 0.95);
+  position: fixed;
+  color: white;
+  font-size: 17px;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+#loading-anim {
+  animation-name: load;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes load {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#show-notable-burials {
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+#show-notable-burials:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
