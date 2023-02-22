@@ -77,16 +77,20 @@ html {
 
 #person-data, #plot-data {
   background: rgba(135, 149, 81, 0.9);
-  position: fixed;
+  position: relative;
   color: white;
-  width: 220px;
+  min-width: 220px;
   border-radius: 5px;
   padding: 10px;
-  left: 20px;
-  top: 160px;
   display: none;
   align-items: center;
   flex-direction: column;
+}
+
+#person-data-container, #plot-data-container {
+  position: fixed;
+  left: 20px;
+  top: 160px;
 }
 
 #landmark-info {
@@ -112,13 +116,10 @@ html {
 
 #person-data-hide, #plot-data-hide {
   position: absolute;
-  transform: translateX(100px);
   cursor: pointer;
   color: #c2c2c2;
-}
-
-#plot-data-hide {
-  transform: translateX(215px);
+  top:  10px;
+  right: 10px;
 }
 
 #zoom-container {
@@ -176,11 +177,7 @@ html {
   cursor: pointer;
 }
 
-#plot-data {
-  position: absolute;
-}
-
-#plot-data > div {
+#plot-inhabitants-container {
   width: 100%;
 }
 
@@ -227,4 +224,8 @@ html {
 #show-notable-burials:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+
+#find-a-grave-link {
+  color: #abd9f7;
 }

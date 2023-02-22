@@ -209,14 +209,17 @@ $(document).ready(() => {
       theirSection = name.substring(name.indexOf('(') + 1, name.length - 1);
       name = name.substring(0, name.indexOf('(') - 1);
     }
-    var section = '';
-    var lot = '';
-    var middle = '';
-    var tit = '';
-    var graveNum = '';
-    var death = '';
-    var lname = '';
-    var fname = '';
+    
+    let section = '';
+    let lot = '';
+    let middle = '';
+    let tit = '';
+    let graveNum = '';
+    let death = '';
+    let lname = '';
+    let fname = '';
+    let findAGraveId = null;
+    
     // google sheets stuff
     for (let i = 0; i < names.length; i++) {
       let checkName = '';
@@ -237,6 +240,7 @@ $(document).ready(() => {
         death = names[i][7];
         fname = names[i][0];
         lname = names[i][2];
+        findAGraveId = names[i][9];
         if (tit === null || tit === '') {
           tit = 'N/A';
         }
@@ -251,6 +255,7 @@ $(document).ready(() => {
         break;
       }
     }
+    
     document.getElementById('person-name').innerHTML = (fname + ' ' + middle + ' ' + lname).replace(null, '').replace(null, '').replace('  ', ' ').replace('  ', ' ');
     document.getElementById('person-section').innerHTML = ('Section: ' + section.toUpperCase()).replace(null, '');
     document.getElementById('person-lot-num').innerHTML = ('Lot Number: ' + lot).replace(null, '');
@@ -266,6 +271,14 @@ $(document).ready(() => {
   
     $('area[title|="' + title + '" i]').data('maphilight', {'alwaysOn': true, 'fillColor': 'f5fc23', 'fillOpacity': '0.4', 'strokeColor': 'f5fc23', 'shadow': true, 'shadowColor': 'f5fc23', 'shadowOpacity': 0.7, 'shadowY': 3, 'shadowPosition': 'outside'}).trigger('alwaysOn.maphilight');
     old = title;
+
+    // FindAGrave link
+    if (findAGraveId) {
+      $("#find-a-grave-link").show();
+      $("#find-a-grave-link").attr("href", `https://www.findagrave.com/memorial/${findAGraveId}/`);
+    } else {
+      $("#find-a-grave-link").hide();
+    }
   }
 
   // submit search form
@@ -346,6 +359,7 @@ $(document).ready(() => {
   
     let notableBurials = [{
       fname: "Arthur",
+      mname: "Robert",
       lname: "Ashe",
       section: "M",
       lot: "11"
