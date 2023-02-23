@@ -118,6 +118,9 @@ $(document).ready(() => {
       }
     }, 10);
   }
+
+  $("#zoom-in").click(zoomIn);
+  
   function zoomOut() {
     if (zooming == true || zoom <= 1) {
       return;
@@ -144,6 +147,9 @@ $(document).ready(() => {
       }
     }, 10);
   }
+
+  $("#zoom-out").click(zoomOut);
+  
   function landmark(name, event) {
     $('#landmark-info').css({'display': 'flex'});
     let left = event.pageX + 5;
@@ -161,6 +167,7 @@ $(document).ready(() => {
       $('#landmark-name').html("Entrance");
     }
   }
+  
   function stopLandmark() {
     $('#landmark-info').css({'display': 'none'});
   }
