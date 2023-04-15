@@ -4,6 +4,10 @@
   font-family: sans-serif;
 }
 
+html {
+  background: #879551;
+}
+
 .center {
   display: grid;
   place-items: center;
@@ -16,6 +20,123 @@
 
 .center:active {
   cursor: grabbing;
+}
+
+#admin-login-container, #sketchfab-embed-container {
+  display: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+#sketchfab-embed-background {
+  padding: 20px;
+  overflow: hidden;
+  background: rgba(135, 149, 81, 0.9);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+#sketchfab-title {
+  margin-bottom: 10px;
+  color: white;
+}
+
+#sketchfab-embed {
+  height: 450px;
+  width: 700px;
+  border-radius: 15px;
+}
+
+#sketchfab-hide {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+  color: #c2c2c2;
+  font-size: 20px;
+}
+
+#admin-login {
+  width: 500px;
+  height: 250px;
+  overflow: hidden;
+  background: rgba(135, 149, 81, 0.9);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+#admin-login-hide {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+  color: #c2c2c2;
+  font-size: 17px;
+}
+
+#admin-password {
+  padding: 10px;
+  border: none;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 20px;
+  border: none;
+  border-radius: 5px;
+  transition: box-shadow 500ms;
+}
+
+#admin-password:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(172, 217, 232, .25);
+}
+
+#admin-login-text {
+  text-align: center;
+  color: white;
+  font-size: 30px;
+}
+
+#admin-alert {
+  color: #de1b21;
+  margin-bottom: 20px;
+  font-size: 20px;
+  display: none;
+}
+
+#open-admin-login {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  padding-left: 7px;
+  padding-right: 7px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border: none;
+  border-radius: 5px;
+  background: #4e7a4e;
+  color: white;
+  cursor: pointer;
+  font-size: 17px;
+  transition: opacity 500ms;
+  opacity: 0.5;
+}
+
+#open-admin-login:hover {
+  opacity: 1;
 }
 
 #search-form {
@@ -48,7 +169,7 @@
   box-shadow: 0 0 0 3px rgba(172, 217, 232, .25);
 }
 
-#submit-button-container > input {
+#submit-button-container > input, #submit-admin-password, .sketchfab-view {
   padding-left: 7px;
   padding-right: 7px;
   padding-top: 5px;
@@ -61,21 +182,43 @@
   cursor: pointer;
 }
 
-#submit-button-container input:hover {
+.sketchfab-view-container {
+  flex-direction: column;
+  align-items: center;
+  display: none;
+  width: 100%;
+}
+
+.sketchfab-view {
+  font-size: 17px;
+}
+
+#submit-admin-password {
+  font-size: 20px;
+}
+
+#submit-button-container input:hover, #submit-admin-password-container input:hover, .sketchfab-view:hover {
   background: #416941;
 }
 
-html {
-  background: #879551;
-}
-
-#submit-button-container {
+#submit-button-container, #submit-admin-password-container {
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
-#person-data, #plot-data {
+#person-data-container {
+  background: rgba(135, 149, 81, 0.9);
+  position: relative;
+  color: white;
+  min-width: 220px;
+  border-radius: 5px;
+  padding: 10px;
+  display: none;
+  flex-direction: column;
+}
+
+#plot-data, #login {
   background: rgba(135, 149, 81, 0.9);
   position: relative;
   color: white;
@@ -105,11 +248,11 @@ html {
   display: none;
 }
 
-#person-info {
+.person-info {
   width: 90%;
 }
 
-#person-name {
+.person-name {
   margin-bottom: 10px;
   margin-right: 20px;
 }
@@ -120,6 +263,24 @@ html {
   color: #c2c2c2;
   top:  10px;
   right: 10px;
+}
+
+.gray-hr {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid white;
+  opacity: 0.25;
+}
+
+#person-matches-found {
+  font-size: 10px;
+  color: #86d5f0;
+  margin-top: 3px;
+  margin-bottom: 2px;
+}
+
+.person-notes {
+  display: none;
 }
 
 #zoom-container {
@@ -226,6 +387,62 @@ html {
   cursor: pointer;
 }
 
-#find-a-grave-link {
+.find-a-grave-link {
   color: #abd9f7;
+  display: none;
+  width: 100%;
+  text-align: center;
+}
+
+/* loading animation */
+#loading-circle {
+  height: 20px;
+  width: 20px;
+  background: transparent;
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
+  border-left: 2px solid transparent;
+  border-right: 2px solid transparent;
+  border-radius: 50%;
+  animation: 1s loadingButton linear infinite;
+}
+
+@keyframes loadingButton {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* header message */
+#header-message-container {
+  position: fixed;
+  top: 70px;
+  left: 0px;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+}
+
+#header-message {
+  height: 40px;
+  display: none;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 10px;
+}
+
+#header-message-text {
+  margin-left: 15px;
+  margin-right: 20px;
+  color: white;
+}
+
+#header-message-hide {
+  margin-right: 15px;
+  cursor: pointer;
+  color: #707070;
 }
