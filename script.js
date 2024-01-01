@@ -1,3 +1,11 @@
+/*
+  IMPORTANT CODING INSTRUCTIONS
+  
+  - Always use pointer events rather than mouse events to allow the website to work on mobile.
+    Ex: onpointerdown rather than onmousedown
+    Source: https://stackoverflow.com/questions/40838963/why-mouseup-mousedown-are-not-working-on-mobile-browser
+*/
+
 $(document).ready(() => {
   // full section coordinates
   let fullSectionCoords = {
@@ -69,18 +77,18 @@ $(document).ready(() => {
     $("map").load("areas.html", () => {
       // fountain
       $('area[title|="fountain" i]').data('maphilight', {'alwaysOn': true, 'fillColor': '1058c4', 'fillOpacity': '0.4', 'strokeColor': '1058c4', 'shadow': true, 'shadowColor': '1058c4', 'shadowOpacity': 0.7, 'shadowY': 3, 'shadowPosition': 'outside'}).trigger('alwaysOn.maphilight');
-      $('area[title|="fountain" i]').mousemove(function (event) {landmark("fountain", event)});
-      $('area[title|="fountain" i]').mouseout(function (event) {stopLandmark()});
+      $('area[title|="fountain" i]').on("pointermove", function (event) {landmark("fountain", event)});
+      $('area[title|="fountain" i]').on("pointerout", function (event) {stopLandmark()});
       
       // entrance
       $('area[title|="entrance" i]').data('maphilight', {'alwaysOn': true, 'fillColor': '1058c4', 'fillOpacity': '0.4', 'strokeColor': '1058c4', 'shadow': true, 'shadowColor': '1058c4', 'shadowOpacity': 0.7, 'shadowY': 3, 'shadowPosition': 'outside'}).trigger('alwaysOn.maphilight');
-      $('area[title|="entrance" i]').mousemove(function (event) {landmark("entrance", event)});
-      $('area[title|="entrance" i]').mouseout(function (event) {stopLandmark()});
+      $('area[title|="entrance" i]').on("pointermove", function (event) {landmark("entrance", event)});
+      $('area[title|="entrance" i]').on("pointerout", function (event) {stopLandmark()});
       
       // chapel
       $('area[title|="chapel" i]').data('maphilight', {'alwaysOn': true, 'fillColor': '1058c4', 'fillOpacity': '0.4', 'strokeColor': '1058c4', 'shadow': true, 'shadowColor': '1058c4', 'shadowOpacity': 0.7, 'shadowY': 3, 'shadowPosition': 'outside'}).trigger('alwaysOn.maphilight');
-      $('area[title|="chapel" i]').mousemove(function (event) {landmark("chapel", event)});
-      $('area[title|="chapel" i]').mouseout(function (event) {stopLandmark()});
+      $('area[title|="chapel" i]').on("pointermove", function (event) {landmark("chapel", event)});
+      $('area[title|="chapel" i]').on("pointerout", function (event) {stopLandmark()});
       
       // see lot details
       $("area").each((i, elmnt) => {
@@ -88,7 +96,7 @@ $(document).ready(() => {
         let y = 0;
         elmnt = $(elmnt);
       
-        elmnt.mousedown(e => {
+        elmnt.on("pointerdown", e => {
           if (elmnt.attr('title') === "Chapel" || elmnt.attr('title') === "Fountain" || elmnt.attr('title') === "Entrance") {
             return;
           }
@@ -97,13 +105,13 @@ $(document).ready(() => {
           y = e.pageY;
         });
       
-        elmnt.mouseup(e => {
+        elmnt.on("pointerup", e => {
           if (elmnt.attr('title') === "Chapel" || elmnt.attr('title') === "Fountain" || elmnt.attr('title') === "Entrance") {
             return;
           }
       
           if (Math.abs(e.pageX - x) < 5 && Math.abs(e.pageY - y) < 5 && apiData) {
-            elmnt.mouseout();
+            elmnt.trigger("pointerout");
       
             // hide person data
             $("#person-data-container").hide();
@@ -116,7 +124,7 @@ $(document).ready(() => {
 
             // list inhabitatns
             for (let i = 0; i < apiData.main.length; i++) {
-              if (apiData.main[i][4].trim() + apiData.main[i][5].trim() === location) {
+              if ((apiData.main[i][4] ? apiData.main[i][4].trim() : "") + (apiData.main[i][5] ? apiData.main[i][5].trim() : "") === location) {
                 let name = 
                   (apiData.main[i][0] ? apiData.main[i][0].trim() + " " : "") + // first name
                   (apiData.main[i][1] ? apiData.main[i][1].trim() + " " : "") + // middle name
@@ -157,14 +165,14 @@ $(document).ready(() => {
   })
   .then(async () => {
     // fetch single grave data
-    await fetch("https://woodlandcemeteryapi.illusion705.repl.co/data/single_graves")
+    await fetch("https://woodlandcemeteryapi.christophercap.repl.co/data/single_graves")
       .then(response => response.json())
       .then(data => {
         apiData.sga = data;
       });
     
     // fetch main data
-    await fetch("https://woodlandcemeteryapi.illusion705.repl.co/data/regular_lots")
+    await fetch("https://woodlandcemeteryapi.christophercap.repl.co/data/regular_lots")
       .then(response => response.json())
       .then(data => {
         apiData.main = data;
@@ -183,7 +191,7 @@ $(document).ready(() => {
         (apiData.main[i][0] ? apiData.main[i][0].trim() + " " : "") + // first name
         (apiData.main[i][1] ? apiData.main[i][1].trim() + " " : "") + // middle name
         (apiData.main[i][2] ? apiData.main[i][2].trim() + " " : "") + // last name
-        ("(" + apiData.main[i][4].trim() + apiData.main[i][5].trim() + ")"); // section and lot number
+        ("(" + (apiData.main[i][4] ? apiData.main[i][4].trim() : "") + (apiData.main[i][5] ? apiData.main[i][5].trim() + ")" : "")); // section and lot number
 
       // add to HTML if not duplicate
       if (!alreadyAdded.includes(searchDisplayVal)) {
@@ -343,6 +351,7 @@ $(document).ready(() => {
           title: apiData.main[i][3] ? apiData.main[i][3].trim() : "N/A",
           graveNum: apiData.main[i][6] ? apiData.main[i][6].trim() : "N/A",
           death: apiData.main[i][7] ? apiData.main[i][7].trim() : "N/A",
+          burial: apiData.main[i][8] ? apiData.main[i][8].trim() : "N/A",
           findAGraveId: apiData.main[i][9] ? apiData.main[i][9].trim() : null,
           sketchfabId: apiData.main[i][10] ? apiData.main[i][10].trim() : null
         });
@@ -375,14 +384,14 @@ $(document).ready(() => {
           title: apiData.sga[i][3] ? apiData.sga[i][3].trim() : "N/A",
           graveNum: apiData.sga[i][6] ? apiData.sga[i][6].trim() : "N/A",
           death: apiData.sga[i][7] ? apiData.sga[i][7].trim() : "N/A",
+          burial: apiData.sga[i][8] ? apiData.sga[i][8].trim() : "N/A",
           findAGraveId: apiData.sga[i][9] ? apiData.sga[i][9].trim() : null,
           sketchfabId: apiData.sga[i][10] ? apiData.sga[i][10].trim() : null
         });
 
         // add notes
-        console.log(apiData.sga[i]);
-        if (apiData.sga[i].length === 11) {
-          matches[matches.length - 1].notes = !apiData.sga[i][10] ? "N/A" : apiData.sga[i][10].trim();
+        if (apiData.sga[i].length === 12) {
+          matches[matches.length - 1].notes = !apiData.sga[i][11] ? "N/A" : apiData.sga[i][11].trim();
         }
       }
     }
@@ -407,6 +416,7 @@ $(document).ready(() => {
       record.find(".person-title").text("Title: " + match.title);
       record.find(".person-grave-number").text("Grave Number: " + match.graveNum);
       record.find(".person-death-date").text("Death Date: " + match.death);
+      record.find(".person-burial-date").text("Burial Date: " + match.burial);
 
       // notes
       if (match.notes !== undefined) {
@@ -489,44 +499,47 @@ $(document).ready(() => {
   dragElement(map);
   
   function dragElement(elmnt) {
-    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-    elmnt.onmousedown = dragMouseDown;
+    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    elmnt.onpointerdown = dragPointerDown;
+    elmnt.ontouchstart = dragPointerDown;
   
-    function dragMouseDown(e) {
+    function dragPointerDown(e) {
       e = e || window.event;
       e.preventDefault();
   
-      // get the mouse cursor position at startup:
+      // get the pointer position at startup:
       pos3 = e.clientX;
       pos4 = e.clientY;
-      document.onmouseup = closeDragElement;
+      document.onpointerup = closeDragElement;
   
-      // call a function whenever the cursor moves:
-      document.onmousemove = elementDrag;
+      // call a function whenever the pointer moves:
+      document.onpointermove = elementDrag;
     }
   
     function elementDrag(e) {
       e = e || window.event;
       e.preventDefault();
-      // calculate the new cursor position:
+      // calculate the new pointer position:
       pos1 = pos3 - e.clientX;
       pos2 = pos4 - e.clientY;
       pos3 = e.clientX;
       pos4 = e.clientY;
   
       // set the element's new position:
-      if (!(img.offsetTop - pos2 > 0 + ((zoom - 1) * 433)) && !(img.offsetTop - pos2 < -255 - ((zoom - 1) * 433))) {
+      console.log(img.offsetWidth - screen.width);
+      if (!(img.offsetTop - pos2 > 0 + ((zoom - 1) * 433)) && !(img.offsetTop - pos2 < -(img.offsetHeight - screen.height) - ((zoom - 1) * 433))) {
         img.style.top = (img.offsetTop - pos2) + 'px';
       }
-      if (!(img.offsetLeft - pos1 > 0 + ((zoom - 1) * 816)) && !(img.offsetLeft - pos1 < -340 - ((zoom - 1) * 816))) {
+      
+      if (!(img.offsetLeft - pos1 > 0 + ((zoom - 1) * 816)) && !(img.offsetLeft - pos1 < -(img.offsetWidth - screen.width) - ((zoom - 1) * 816))) {
         img.style.left = (img.offsetLeft - pos1) + 'px';
       }
     }
   
     function closeDragElement() {
-      // stop moving when mouse button is released:
-      document.onmouseup = null;
-      document.onmousemove = null;
+      // stop moving when pointer is released:
+      document.onpointerup = null;
+      document.onpointermove = null;
     }
   }
   

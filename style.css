@@ -162,6 +162,7 @@ html {
   border: none;
   border-radius: 5px;
   transition: box-shadow 500ms;
+  width: 90%;
 }
 
 #search-form > input:focus {
@@ -285,13 +286,14 @@ html {
 
 #zoom-container {
   position: absolute;
-  top: 85%;
   display: flex;
   flex-direction: column;
   height: 70px;
   align-items: center;
   justify-content: space-between;
-  left: 95%;
+  bottom: 20px;
+  right: 20px;
+  width: 30px;
 }
 
 #zoom-in, #zoom-out {
@@ -307,11 +309,6 @@ html {
   user-select: none;
   border-radius: 2px;
   opacity: 0.7;
-  position: fixed;
-}
-
-#zoom-in {
-  transform: translate(0, -40px);
 }
 
 #zoom-in:hover, #zoom-out:hover {
