@@ -38,8 +38,8 @@
 - Admin login feature to see notes (password: WoodlandCemetery123!)
 
 ## API Info
-- API is currently hosted on replit: https://replit.com/@Illusion705/WoodlandCemeteryAPI
-- App fetches from https://woodlandcemeteryapi.illusion705.repl.co/data/regular_lots
+- API is currently hosted on replit: https://replit.com/@ChristopherCap/WoodlandCemeteryAPI
+- App fetches from https://woodlandcemeteryapi.christophercap.repl.co/data/regular_lots
 - Single grave route needs to be added to the API
 
 ## Deliverables
