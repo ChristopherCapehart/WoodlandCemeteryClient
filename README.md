@@ -65,6 +65,6 @@
 
 ## Project Links
 - Map: https://woodlandcemeterycitproject.christophercap.repl.co/
-- API Replit: https://replit.com/@Illusion705/WoodlandCemeteryAPI
+- API Replit: https://replit.com/@ChristopherCap/WoodlandCemeteryAPI
 - Fontend Replit: https://replit.com/@ChristopherCap/WoodlandCemeteryCITProject
-- Github: https://github.com/Illusion705/WoodlandCemeteryCITProject
+- Github: https://github.com/ChristopherCapehart/WoodlandCemeteryCITProject
